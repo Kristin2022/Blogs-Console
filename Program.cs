@@ -49,7 +49,15 @@ while (true)
 
 void DisplayPosts()
 {
-    throw new NotImplementedException();
+     var db = new BloggingContext();
+    var query = db.Posts.OrderBy(b => b.PostId);
+
+     Console.WriteLine($"Option \"4\" selected\n{query.Count()} Posts returned");
+
+    foreach (var item in query)
+    {
+        Console.WriteLine(item.PostId + item.Title + item.Content);
+    }
 }
 
 void AddBlog()
