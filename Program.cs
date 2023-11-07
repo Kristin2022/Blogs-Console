@@ -8,7 +8,7 @@ string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 var logger = LogManager.LoadConfiguration(path).GetCurrentClassLogger();
 logger.Info("Program started");
 
-while(true)
+while (true)
 {
     System.Console.WriteLine("Enter your selection: ");
     System.Console.WriteLine("1) Display all blogs");
@@ -22,7 +22,7 @@ while(true)
     {
         if (resp == "1")
         {
-            DisplayAllBlogs(); 
+            DisplayAllBlogs();
         }
         else if (resp == "2")
         {
@@ -67,6 +67,7 @@ void DisplayAllBlogs()
 {
     var db = new BloggingContext();
     var query = db.Blogs.OrderBy(b => b.Name);
+    // using(var context = new ContextBlog())
 
     Console.WriteLine($"Option \"1\" selected\n{query.Count()} Blogs returned");
 
@@ -78,18 +79,29 @@ void DisplayAllBlogs()
 
 void CreatePost()
 {
-    //     Console.Write("Enter a name for a new Blog: ");
     Console.WriteLine($"Option 3 was selected");
-    System.Console.WriteLine("Select the blog you would to post to: ");
-
-     var db = new BloggingContext();
-    var query = db.Blogs.OrderBy(b => b.Name);
-     var name = Console.ReadLine();
-     foreach (var item in query)
+    try
     {
-        Console.WriteLine(item.Name);
+        var db = new BloggingContext();
+        var query = db.Blogs.OrderBy(b => b.BlogId);
+        Console.WriteLine("Select the blog you would like to post to: ");
+        foreach (var item in query)
+        {
+            Console.WriteLine($"{item.BlogId}. {item.Name}");
+        }
+        Post post = new Post();
+        post.BlogId = Convert.ToInt32(Console.ReadLine()); 
+        Console.WriteLine("Enter the Post Title"); 
+        post.Title = Console.ReadLine();
+        Console.WriteLine("Enter Post Content");
+        post.Content = Console.ReadLine();
+        db.AddPost(post);
+        logger.Info("Post added - {title}", post.Title);
     }
-    
+    catch (Exception ex)
+    {
+        System.Console.WriteLine("Invalid blog id" + ex.Message);
+    }
 }
 
 logger.Info("Program ended");
@@ -184,3 +196,23 @@ logger.Info("Program ended");
 //     throw new NotImplementedException();
 // }
 
+    // var db = new BloggingContext();
+    //     var query = db.Blogs.OrderBy(b => b.BlogId);
+    //     Console.WriteLine("Select the blog you would like to post to: ");
+    //     foreach (var item in query)
+    //     {
+    //         Console.WriteLine($"1{item.BlogId}. {item.Name}");
+    //         if (item.BlogId == 1)
+    //         {
+    //             Console.Write("Enter a name for a new Post: ");
+    //             var title = Console.ReadLine();
+
+    //             var Post = new Post { Title = title };
+
+    //             var dbPost = new Post();
+    //             db.AddPost();
+    //             logger.Info("Title added - {title}", title);
+    //         }
+    //     }
+    //     var BlogId = Console.ReadLine();
+    //     var PostTitle = Console.ReadLine();
