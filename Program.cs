@@ -56,7 +56,7 @@ void DisplayPosts()
 
     foreach (var item in query)
     {
-        Console.WriteLine(item.PostId + item.Title + item.Content);
+        Console.WriteLine($"{item.PostId} {item.Title} {item.Content}");
     }
 }
 
