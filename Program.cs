@@ -101,12 +101,40 @@ void CreatePost()
             Console.WriteLine($"{item.BlogId}. {item.Name}");
         }
         Post post = new Post();
-        post.BlogId = Convert.ToInt32(Console.ReadLine()); 
-            
-        Console.WriteLine("Enter the Post Title"); 
+
+        while(true)
+        {
+            try
+            {
+                   post.BlogId = Convert.ToInt32(Console.ReadLine());
+                   
+                   break;
+            }
+            catch(FormatException)
+            {
+                System.Console.WriteLine("BlogId cannot be null or empty.");
+            }
+
+        }
+    
+          while(true)
+          {
+            Console.WriteLine("Enter the Post Title"); 
         post.Title = Console.ReadLine();
+        
+            if(string.IsNullOrWhiteSpace(post.Title))
+            {
+                System.Console.WriteLine("Post name cannot be null.");
+            }
+            else
+            {
+                break;
+            }
+          }  
+        
         Console.WriteLine("Enter Post Content");
         post.Content = Console.ReadLine();
+
         db.AddPost(post);
         logger.Info("Post added - /n{title}", post.Title);
     }
