@@ -64,6 +64,10 @@ void AddBlog()
 {
     Console.Write("Enter a name for a new Blog: ");
     var name = Console.ReadLine();
+        if(string.IsNullOrWhiteSpace(name))
+        {
+            System.Console.WriteLine("Blog name cannot be null.");
+        }
 
     var blog = new Blog { Name = name };
 
