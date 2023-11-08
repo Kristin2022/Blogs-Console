@@ -49,10 +49,10 @@ while (true)
 
 void DisplayPosts()
 {
-     var db = new BloggingContext();
+    var db = new BloggingContext();
     var query = db.Posts.OrderBy(b => b.PostId);
 
-     Console.WriteLine($"Option \"4\" selected\n{query.Count()} Posts returned");
+    Console.WriteLine($"Option \"4\" selected\n{query.Count()} Posts returned");
 
     foreach (var item in query)
     {
@@ -64,10 +64,10 @@ void AddBlog()
 {
     Console.Write("Enter a name for a new Blog: ");
     var name = Console.ReadLine();
-        if(string.IsNullOrWhiteSpace(name))
-        {
-            System.Console.WriteLine("Blog name cannot be null.");
-        }
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        System.Console.WriteLine("Blog name cannot be null.");
+    }
 
     var blog = new Blog { Name = name };
 
@@ -102,27 +102,27 @@ void CreatePost()
         }
         Post post = new Post();
 
-        while(true)
+        while (true)
         {
             try
             {
-                   post.BlogId = Convert.ToInt32(Console.ReadLine());
-                   
-                   break;
+                post.BlogId = Convert.ToInt32(Console.ReadLine());
+
+                break;
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 System.Console.WriteLine("BlogId cannot be null or empty.");
             }
 
         }
-    
-          while(true)
-          {
-            Console.WriteLine("Enter the Post Title"); 
-        post.Title = Console.ReadLine();
-        
-            if(string.IsNullOrWhiteSpace(post.Title))
+
+        while (true)
+        {
+            Console.WriteLine("Enter the Post Title");
+            post.Title = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(post.Title))
             {
                 System.Console.WriteLine("Post name cannot be null.");
             }
@@ -130,8 +130,8 @@ void CreatePost()
             {
                 break;
             }
-          }  
-        
+        }
+
         Console.WriteLine("Enter Post Content");
         post.Content = Console.ReadLine();
 
